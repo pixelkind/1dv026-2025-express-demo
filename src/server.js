@@ -53,6 +53,10 @@ app.get("/about", (req, res) => {
   res.send("<h1>Hello I am Garrit</h1>");
 });
 
+app.get("/posts", (req, res) => {
+  res.render("posts", { posts });
+});
+
 app.get("/posts/:id", (req, res) => {
   const postId = Number(req.params.id);
   const post = getPostById(postId);
