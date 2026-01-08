@@ -1,10 +1,17 @@
 import express from "express";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const directoryFullName = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const PORT = 3000;
 
+app.set("view engine", "ejs");
+app.set("views", join(directoryFullName, "views"));
+
 app.get("/", (req, res) => {
-  res.send("Hello LNU Express");
+  res.render("index");
 });
 
 app.get("/about", (req, res) => {
