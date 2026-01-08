@@ -11,7 +11,10 @@ app.set("view engine", "ejs");
 app.set("views", join(directoryFullName, "views"));
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", {
+    title: "Hello World",
+    text: "Hamster are the best! 🐹",
+  });
 });
 
 app.get("/about", (req, res) => {
