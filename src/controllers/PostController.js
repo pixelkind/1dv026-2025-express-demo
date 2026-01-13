@@ -28,11 +28,33 @@ export class PostController {
   ];
 
   #getPostById(id) {
-    return posts.find((p) => p.id === id);
+    return this.#posts.find((p) => p.id === id);
+  }
+
+  async loadPost(req, res, next, id) {
+    try {
+      const postId = Number(id);
+      const post = this.#getPostById(postId);
+
+      if (!post) {
+        const error = new Error("The post you requested does not exist.");
+        error.status = 404;
+        throw error;
+      }
+
+      req.post = post;
+      next();
+    } catch (error) {
+      next(error);
+    }
   }
 
   async index(req, res, next) {
     const posts = this.#posts;
     res.render("posts", { posts });
+  }
+
+  async detail(req, res, next) {
+    res.render("post", { post: req.post });
   }
 }
