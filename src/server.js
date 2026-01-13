@@ -3,6 +3,8 @@ import expressLayouts from "express-ejs-layouts";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { router } from "./routes/router.js";
+
 const posts = [
   {
     id: 1,
@@ -48,31 +50,33 @@ app.set("layout extractScripts", true);
 app.set("layout extractStyles", true);
 app.use(expressLayouts);
 
-app.get("/", (req, res) => {
-  res.render("index", {
-    title: "Hello World",
-    text: "Hamster are the best! 🐹",
-  });
-});
+app.use("/", router);
 
-app.get("/about", (req, res) => {
-  res.send("<h1>Hello I am Garrit</h1>");
-});
+// app.get("/", (req, res) => {
+//   res.render("index", {
+//     title: "Hello World",
+//     text: "Hamster are the best! 🐹",
+//   });
+// });
 
-app.get("/posts", (req, res) => {
-  res.render("posts", { posts });
-});
+// app.get("/about", (req, res) => {
+//   res.send("<h1>Hello I am Garrit</h1>");
+// });
 
-app.get("/posts/:id", (req, res) => {
-  const postId = Number(req.params.id);
-  const post = getPostById(postId);
+// app.get("/posts", (req, res) => {
+//   res.render("posts", { posts });
+// });
 
-  if (!post) {
-    return res.status(404).send("Post not found");
-  }
+// app.get("/posts/:id", (req, res) => {
+//   const postId = Number(req.params.id);
+//   const post = getPostById(postId);
 
-  res.render("post", { post });
-});
+//   if (!post) {
+//     return res.status(404).send("Post not found");
+//   }
+
+//   res.render("post", { post });
+// });
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
