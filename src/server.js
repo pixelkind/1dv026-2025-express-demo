@@ -61,6 +61,8 @@ app.set("layout extractScripts", true);
 app.set("layout extractStyles", true);
 app.use(expressLayouts);
 
+app.use(express.urlencoded({ extended: true }));
+
 app.use("/", router);
 
 app.listen(PORT, () => {

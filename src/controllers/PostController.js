@@ -26,4 +26,8 @@ export class PostController {
   async detail(req, res, next) {
     res.render("post", { post: req.post });
   }
+
+  async create(req, res, next) {
+    res.render("create");
+  }
 }
