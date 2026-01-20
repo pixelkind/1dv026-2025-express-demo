@@ -12,3 +12,5 @@ router.param("id", (req, res, next, id) =>
 router.get("/", (req, res, next) => controller.index(req, res, next));
 router.get("/create", (req, res, next) => controller.create(req, res, next));
 router.get("/:id", (req, res, next) => controller.detail(req, res, next));
+
+router.post("/", (req, res, next) => controller.createPost(req, res, next));
