@@ -1,5 +1,6 @@
 import express from "express";
 import expressLayouts from "express-ejs-layouts";
+import session from "express-session";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -62,6 +63,18 @@ app.set("layout extractStyles", true);
 app.use(expressLayouts);
 
 app.use(express.urlencoded({ extended: true }));
+
+export const sessionOptions = {
+  name: "blog", // Don't use default session cookie name.
+  secret: "Hello World", // Change it!!! The secret is used to hash the session with HMAC.
+  resave: false, // Resave even if a request is not changing the session.
+  saveUninitialized: false, // Don't save a created but not modified session.
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    sameSite: "strict",
+  },
+};
+app.use(session(sessionOptions));
 
 app.use("/", router);
 
