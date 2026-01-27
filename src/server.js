@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 import { router } from "./routes/router.js";
 import { connectToDatabase } from "./config/mongoose.js";
 import { PostModel } from "./models/PostModel.js";
+import { UserModel } from "./models/UserModel.js";
 
 const directoryFullName = dirname(fileURLToPath(import.meta.url));
 
@@ -53,6 +54,11 @@ async function createDemoContent() {
   console.log("Demo Content created");
 }
 // await createDemoContent();
+
+async function createDemoUser() {
+  await UserModel.create({ username: "admin", passwordHash: "testtest123" });
+}
+// await createDemoUser();
 
 app.set("view engine", "ejs");
 app.set("views", join(directoryFullName, "views"));
